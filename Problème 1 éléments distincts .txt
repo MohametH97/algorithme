@@ -1,0 +1,47 @@
+ALGORITHM SumDistinct
+VAR
+    set1       : ARRAY[4] OF INTEGER
+    set2       : ARRAY[5] OF INTEGER
+    n1, n2     : INTEGER        /* sizes of the sets          */
+    sum        : INTEGER        /* sum of distinct elements   */
+    i, j       : INTEGER        /* loop indices               */
+    found      : BOOLEAN        /* presence flag              */
+
+BEGIN
+    /* Initialize the sets */
+    n1 := 4
+    n2 := 5
+    set1[0] := 3 ; set1[1] := 1 ; set1[2] := 7 ; set1[3] := 9
+    set2[0] := 2 ; set2[1] := 4 ; set2[2] := 1 ; set2[3] := 9 ; set2[4] := 3
+
+    sum := 0
+
+    /* Step 1 : elements of set1 not present in set2 */
+    FOR i := 0 TO n1-1 DO
+        found := FALSE
+        FOR j := 0 TO n2-1 DO
+            IF (set1[i] = set2[j]) THEN
+                found := TRUE
+            END_IF
+        END_FOR
+        IF (found = FALSE) THEN
+            sum := sum + set1[i]
+        END_IF
+    END_FOR
+
+    /* Step 2 : elements of set2 not present in set1 */
+    FOR i := 0 TO n2-1 DO
+        found := FALSE
+        FOR j := 0 TO n1-1 DO
+            IF (set2[i] = set1[j]) THEN
+                found := TRUE
+            END_IF
+        END_FOR
+        IF (found = FALSE) THEN
+            sum := sum + set2[i]
+        END_IF
+    END_FOR
+
+    Write("Sum of distinct elements : ", sum)
+    /* Expected result : 13  (4 + 7 + 2) */
+END
